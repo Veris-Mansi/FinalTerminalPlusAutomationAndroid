@@ -211,4 +211,17 @@ class TestWalkInmobile():
         autofetch_user(self.driver,self.walkin_details)
         online_mode(self.driver)
 
+    def test_logout(self):
+        try:
+            logout(self.driver)
+            self.status_test = True
+            statusOftest(self.status_test, self.driver)
+
+        except:
+            self.status_test = False
+            takeScreenshot(self.driver)
+            statusOftest(self.status_test, self.driver)
+            raise
+
+
 
