@@ -18,7 +18,7 @@ def settingup():
 
     desired_capabilities = {
 
-        "app": "C:\\Users\\veris\Videos\\JUNE_latestt_again\\JUNE-Terminal-Plus-release.apk",
+        "app": "C:\\Users\\veris\\Videos\\JUNE_latestt_again\\June-13-Terminal-Plus-release.apk",
         "platformName": "Android",
         "deviceName": "fc378d12",
         "appActivity": ".MainActivity",
@@ -176,7 +176,7 @@ def setting_email(driver):
     p.click()
     q = WebDriverWait(driver, 10, poll_frequency=0.005).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Please write here')))
-    q.send_keys('qqq@nb.com')
+    q.send_keys('qpk@nb.com')
     email=q.text
     print(email)
     driver.hide_keyboard()
@@ -261,8 +261,8 @@ def setting_contact_touch(driver):
     useraction.tap(x=174, y=834).perform()
     useraction.tap(x=174, y=834).perform()
     """
-    useraction.tap(x=628, y=843).perform()
-    useraction.tap(x=628, y=843).perform()
+    useraction.tap(x=174, y=834).perform()
+    useraction.tap(x=174, y=834).perform()
     for i in range(3):
         useraction.tap(x=399, y=841).perform()
 
@@ -271,7 +271,7 @@ def setting_contact_touch(driver):
 
     time.sleep(0.5)
     Next(driver)
-    contact="9988866666"
+    contact="7788866666"
     return contact
     """
     9=(new TouchAction(driver)).tap(628, 843).perform()
@@ -1270,13 +1270,13 @@ def general_activity_dropdown(driver):
         raise
 
 def logout(driver):
-    settings = WebDriverWait(driver, 5, poll_frequency=0.5).until(
-        EC.presence_of_element_located((By.ACCESSIBILITY_ID, "settingsButton")))
+    settings = WebDriverWait(driver, 15, poll_frequency=0.5).until(
+        EC.presence_of_element_located(
+            (By.XPATH, '//android.view.ViewGroup[@content-desc="settingsButton "]/android.widget.ImageView')))
     settings.click()
-    settings = WebDriverWait(driver, 5, poll_frequency=0.5).until(
+    code = WebDriverWait(driver, 5, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, "Authorization Code")))
-    settings.send_keys("1")
-    driver.hide_keyboard()
+    code.send_keys("1")
     settings = WebDriverWait(driver, 5, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, "settings")))
     settings.click()
