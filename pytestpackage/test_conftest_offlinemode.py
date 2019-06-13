@@ -117,7 +117,17 @@ class TestWalk_In():
             statusOftest(self.status_test, self.driver)
             raise
 
+    def test_logout(self):
+        try:
+            logout(self.driver)
+            self.status_test = True
+            statusOftest(self.status_test, self.driver)
 
+        except:
+            self.status_test = False
+            takeScreenshot(self.driver)
+            statusOftest(self.status_test, self.driver)
+            raise
 
 
 
