@@ -203,3 +203,12 @@ class TestWalkInmobile():
             self.status_test = False
             statusOftest(self.status_test, self.driver)
             raise
+
+    def test_walkin_autofetch_offlinemode(self):
+        time.sleep(0.3)
+        offline_mode(self.driver)
+        time.sleep(0.3)
+        autofetch_user(self.driver,self.walkin_details)
+        online_mode(self.driver)
+
+
