@@ -250,7 +250,7 @@ def setting_contact_touch(driver):
     p.click()
     time.sleep(0.5)
     useraction=TouchAction(driver)
-    useraction.tap(x=174, y=834).perform()
+    """useraction.tap(x=174, y=834).perform()
     useraction.tap(x=399, y=841).perform()
     useraction.tap(x=399, y=841).perform()
     useraction.tap(x=399, y=841).perform()
@@ -260,10 +260,18 @@ def setting_contact_touch(driver):
     useraction.tap(x=620, y=709).perform()
     useraction.tap(x=174, y=834).perform()
     useraction.tap(x=174, y=834).perform()
+    """
+    useraction.tap(x=628, y=843).perform()
+    useraction.tap(x=628, y=843).perform()
+    for i in range(3):
+        useraction.tap(x=399, y=841).perform()
+
+    for i in range(5):
+        useraction.tap(x=620, y=709).perform()
 
     time.sleep(0.5)
     Next(driver)
-    contact="7888866677"
+    contact="9988866666"
     return contact
     """
     9=(new TouchAction(driver)).tap(628, 843).perform()
@@ -375,21 +383,23 @@ def setting_offline_touch(driver):
     p.click()
     time.sleep(0.5)
     useraction=TouchAction(driver)
+    useraction.tap(x=174, y=834).perform()
     useraction.tap(x=628, y=843).perform()
-    useraction.tap(x=628, y=843).perform()
-    useraction.tap(x=628, y=843).perform()
+    useraction.tap(x=399, y=841).perform()
     useraction.tap(x=628, y=843).perform()
     useraction.tap(x=628, y=843).perform()
     useraction.tap(x=399, y=841).perform()
     useraction.tap(x=399, y=841).perform()
     useraction.tap(x=399, y=841).perform()
-    useraction.tap(x=399, y=841).perform()
     useraction.tap(x=628, y=843).perform()
+    useraction.tap(x=399, y=841).perform()
 
-    contact="9999988889"
-
+    contact="7989988898"
+    Next(driver)
     return contact
 
+def online_mode(driver):
+    driver.toggle_wifi()
 def setting_contact_member(driver):
 
     print("wait before nine")
@@ -461,7 +471,7 @@ def setting_contact_member(driver):
     Next(driver)
     #
 def late_tracking(driver):
-    el = WebDriverWait(driver, 10, poll_frequency=0.5).until(
+    el = WebDriverWait(driver, 20, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'Late_Tracking')))
     el.click()
 def walkin_visitor(driver,walkin_details):
@@ -1140,6 +1150,8 @@ def check_out(driver,details):
         setting_email_member(driver)
     elif (details['status'] == 'offline' and details['type'] == 'mobile'):
         setting_offline_touch(driver)
+        time.sleep(0.5)
+        activity_summary(driver,details)
 
     #time.sleep(5)
     activity_checkOut(driver,details)
@@ -1209,6 +1221,17 @@ def activity_summary(driver,details):
             else:
                 assert False
 
+        elif (details['status'] == 'offline' and details['type'] == 'mobile'):
+            element1 = WebDriverWait(driver, 10, poll_frequency=0.5).until(
+                EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'TOM')))
+            time.sleep(0.5)
+            texts = element1.text
+            if (texts == details['Emergency_contact_name']):
+                print("Right user check-in")
+                assert True
+            else:
+                assert False
+
         Next(driver)
     else:
         print("Activity summary screen not displayed")
@@ -1267,6 +1290,62 @@ def late_tracking(driver):
     c = WebDriverWait(driver, 5, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, "Late_Tracking")))
     c.click()
+
+def general_activiity_walkin(driver,walkin_details):
+    try:
+        late_tracking(driver)
+        time.sleep(0.5)
+        if(walkin_details['status'] == 'walkin'):
+            contact = setting_contact_touch(driver)
+        elif(walkin_details['status'] == 'offline'):
+            contact=setting_offline_touch(driver)
+        camera(driver)
+        FLEP_Screen(driver, walkin_details, contact)
+        emergency_contact(driver, walkin_details)
+        Next(driver)
+        unique_id(driver, walkin_details['unique_id'])
+        gender_Screen(driver)
+        driver.hide_keyboard()
+        Next(driver)
+
+        activity_complete_general(driver, walkin_details)
+        status_test = True
+        statusOftest(status_test, driver)
+    except:
+        print("exception")
+        takeScreenshot(driver)
+
+        status_test = False
+        statusOftest(status_test, driver)
+        raise
+def general_activity_autofetch(driver,walkin_details):
+    try:
+        late_tracking(driver)
+        time.sleep(0.5)
+        if(walkin_details['status'] == 'walkin'):
+            contact = setting_contact_touch(driver)
+        elif(walkin_details['status'] == 'offline'):
+            contact=setting_offline_touch(driver)
+        cameraretake(driver)
+        FLEP_auto_fetch_visitor(driver, walkin_details, contact)
+        time.sleep(1)
+        emergency_details_autofetch(driver, walkin_details)
+        Next(driver)
+        unique_id_autofetch(driver, walkin_details['unique_id'])
+        gender_Screen(driver)
+        Next(driver)
+        activity_complete_general(driver, walkin_details)
+        # check_out(driver, walkin_details)
+        status_test = True
+        statusOftest(status_test, driver)
+        # driver.background_app(2)
+    except:
+        print("exception")
+        takeScreenshot(driver)
+        status_test = False
+        statusOftest(status_test, driver)
+        raise
+
 def offline_mode(driver):
     status = "offline"
     settings = WebDriverWait(driver, 15, poll_frequency=0.5).until(
