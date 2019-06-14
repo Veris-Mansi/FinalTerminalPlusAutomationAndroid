@@ -131,7 +131,7 @@ def start_activity(driver):
     time.sleep(0.5)
     permission_buttons_small_device(driver)
     time.sleep(1.5)
-    driver.press_keycode(4)
+    driver.press_keycode(4) # back
     time.sleep(0.5)
     driver.start_activity("com.veristerminal", ".MainActivity")
     time.sleep(1)
@@ -266,12 +266,13 @@ def setting_contact_touch(driver):
     for i in range(3):
         useraction.tap(x=399, y=841).perform()
 
-    for i in range(5):
+    for i in range(4):
         useraction.tap(x=620, y=709).perform()
 
+    useraction.tap(x=174, y=834).perform()
     time.sleep(0.5)
     Next(driver)
-    contact="7788866666"
+    contact="7788866667"
     return contact
     """
     9=(new TouchAction(driver)).tap(628, 843).perform()
@@ -1150,7 +1151,7 @@ def check_out(driver,details):
         setting_email_member(driver)
     elif (details['status'] == 'offline' and details['type'] == 'mobile'):
         setting_offline_touch(driver)
-        time.sleep(0.5)
+        time.sleep(1)
         activity_summary(driver,details)
 
     #time.sleep(5)
@@ -1176,7 +1177,8 @@ def activity_summary(driver,details):
     statuss=e.is_displayed()
     if(statuss):
         print("activity_summary_screen_displayed")
-        time.sleep(0.5)
+        time.sleep(1)
+        print(details)
         if(details['status'] == 'walkin' and details['type'] == 'mobile'):
             element1 = WebDriverWait(driver, 10, poll_frequency=0.5).until(
                 EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'TOM')))
@@ -1224,6 +1226,7 @@ def activity_summary(driver,details):
         elif (details['status'] == 'offline' and details['type'] == 'mobile'):
             element1 = WebDriverWait(driver, 10, poll_frequency=0.5).until(
                 EC.presence_of_element_located((By.ACCESSIBILITY_ID, 'TOM')))
+            print("found TOM")
             time.sleep(0.5)
             texts = element1.text
             if (texts == details['Emergency_contact_name']):
@@ -1277,11 +1280,11 @@ def logout(driver):
     code = WebDriverWait(driver, 5, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, "Authorization Code")))
     code.send_keys("1")
-    settings = WebDriverWait(driver, 5, poll_frequency=0.5).until(
+    settings = WebDriverWait(driver, 15, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ACCESSIBILITY_ID, "settings")))
     settings.click()
-    settings = WebDriverWait(driver, 5, poll_frequency=0.5).until(EC.presence_of_element_located((By.XPATH,
-                                                                                                  '//android.view.ViewGroup[@content-desc="logOutTerminal"]/android.view.ViewGroup/android.view.ViewGroup')))
+    settings = WebDriverWait(driver, 15, poll_frequency=0.5).until(EC.presence_of_element_located((By.XPATH,
+                                                                                                  '	//android.view.ViewGroup[@content-desc="logOutTerminal"]/android.view.ViewGroup')))
     settings.click()
     c = WebDriverWait(driver, 5, poll_frequency=0.5).until(
         EC.presence_of_element_located((By.ID, "android:id/button1")))
