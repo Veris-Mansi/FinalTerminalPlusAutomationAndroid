@@ -32,6 +32,7 @@ class TestWalk_In():
         time.sleep(0.3)
         offline_mode(self.driver)
 
+
     def test_offlineMode_walkin(self):
         try:
             time.sleep(0.5)
