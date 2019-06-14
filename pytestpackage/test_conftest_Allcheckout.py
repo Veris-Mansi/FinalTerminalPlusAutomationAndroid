@@ -31,6 +31,9 @@ class TestWalkInemail():
         except Exception as e:
             print(e)
 
+    def test_fresh_user_walkin(self):
+        walkin_visitor(self.driver, self.walkin_details)
+        self.driver.background_app(1)
 
     def test_checkout_walkinuser(self):
        try:
@@ -41,6 +44,7 @@ class TestWalkInemail():
            self.status_test = False
            statusOftest(self.status_test, self.driver)
            raise
+
     def test_checkout_member(self):
         try:
             check_out(self.driver, self.member_details)
@@ -91,3 +95,4 @@ class TestWalkInemail():
             self.status_test = False
             statusOftest(self.status_test, self.driver)
             raise
+
