@@ -170,6 +170,7 @@ class TestWalkInemail():
 
        except:
            print("exception")
+           takeScreenshot(self.driver)
            self.status_test = False
            statusOftest(self.status_test, self.driver)
            raise
@@ -180,6 +181,7 @@ class TestWalkInemail():
 
         except:
             print("exception")
+            takeScreenshot(self.driver)
             self.status_test = False
             statusOftest(self.status_test, self.driver)
             raise
@@ -191,6 +193,7 @@ class TestWalkInemail():
 
         except:
             print("exception")
+            takeScreenshot(self.driver)
             self.status_test = False
             statusOftest(self.status_test, self.driver)
             raise
